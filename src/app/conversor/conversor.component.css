@@ -1,0 +1,35 @@
+form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 50%;
+  float: left;
+}
+
+.full-width {
+  width: 100%;
+
+}
+
+div.table{
+  max-height: 600px !important;
+  overflow-x: auto;
+  width: 40%;
+  float: right;
+}
+table{
+  width: 100%;
+}
+
+button{
+  margin: 10px;
+}
+
+h2{
+  text-align: center;
+  width: 90%;
+}
+
+.btnMenu{
+  background-color: black;
+  color: white;
+}

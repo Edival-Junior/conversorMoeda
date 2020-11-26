@@ -1,0 +1,62 @@
+<div class="container">
+  <hr>
+  <div class="row">
+    <button class="btnMenu" mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="cotacoesSalvas()">Ver cotações salvas</button>
+    </mat-menu>
+
+
+    <h2>Conversor de moedas</h2>
+  </div>
+
+  <hr>
+  <div>
+
+    <form class="form">
+      <mat-form-field class="full-width">
+        <mat-label>Moeda: </mat-label>
+        <select matNativeControl [(ngModel)]="moedaSelecionada" id="moeda" [ngModelOptions]="{standalone:true}"  required>
+           <option *ngFor="let item of listaMoedas" [ngValue]="item">{{item.codigo}} - {{item.descricao}} </option>
+          </select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="visualizarConversao || valorConvertido" class="full-width">
+        <mat-label>Quantia Para conversão</mat-label>
+        <input matInput type="number" [(ngModel)]="valorConversao" [ngModelOptions]="{standalone:true}" id="valorConversao" placeholder="1000" min="0"/>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="visualizarConversao || valorConvertido" class="full-width">
+        <mat-label>Moeda de destino: </mat-label>
+        <select matNativeControl [(ngModel)]="moedaConversao" id="moedaConversao" [ngModelOptions]="{standalone:true}"  required>
+           <option *ngFor="let item of listaMoedas" [ngValue]="item">{{item.codigo}} - {{item.descricao}} </option>
+          </select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="!visualizarConversao && valorConvertido" class="full-width">
+        <mat-label>Valor Convertido</mat-label>
+        <input matInput type="number" disabled="disabled" [(ngModel)]="valorConvertido" [ngModelOptions]="{standalone:true}" placeholder="1000" min="0"/>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="buscar()">Buscar</button>
+      <button mat-raised-button color="primary" (click)=" !visualizarConversao ? visualizarConversao = true : confirmarOcultar()">{{!visualizarConversao ? "Conversão de moedas" : "Confirmar" }}</button>
+      <button mat-raised-button color="primary" (click)="salvar()">Salvar cotação</button>
+    </form>
+
+    <div class="table" *ngIf="exibirLista">
+      <table class="">
+        <thead>
+          <th> CAMBIO </th>
+          <th> VALOR </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of quotes | keyvalue">
+            <td> {{item.key}} </td>
+            <td> {{item.value | currency : moedaSelecionada.codigo}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

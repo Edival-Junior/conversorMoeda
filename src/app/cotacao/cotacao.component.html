@@ -1,0 +1,43 @@
+<div class="container">
+  <hr>
+  <div class="row">
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="verCotacoes()">Ver cotações atuais!</button>
+    </mat-menu>
+
+
+    <h2>Cotações Salvas</h2>
+  </div>
+
+  <hr>
+    <div class="table" *ngIf="cotacoes">
+      <table class="">
+        <thead>
+          <th> Moeda Inicial </th>
+          <th> Moeda Final </th>
+          <th> Valor total </th>
+          <th> Quantidade </th>
+          <th> Valor unidade </th>
+          <th colspan="2"> </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cotacoes">
+            <td> {{item.moedaDe.descricao}} </td>
+            <td> {{item.moedaPara.descricao}} </td>
+            <td> {{item.valorTotal | currency : item.moedaPara.codigo}}</td>
+            <td> {{item.quantidade}}</td>
+            <td> {{item.valorUnidade | currency : item.moedaPara.codigo}}</td>
+            <th> <button type="button" (click)="editar(item)"> Editar  </button></th>
+            <th> <button type="button" (click)="excluir(item.id)"> Excluir </button></th>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div *ngIf="showForm">
+      <label for="">Valor und.:</label>
+      <input type="number" [(ngModel)]="cotacao.valorUnidade" (change)="recalcular()" >
+      <button type="button"(click)="alterar(cotacao)"> Confirmar </button>
+    </div>
+</div>
